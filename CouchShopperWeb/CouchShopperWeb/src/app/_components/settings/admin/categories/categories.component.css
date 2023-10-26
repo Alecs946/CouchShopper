@@ -1,0 +1,79 @@
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+button {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+  .category-table thead th {
+    background-color: #91AEB8;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .category-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .category-table tbody td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+
+    .category-table tbody td:first-child {
+      border-left: none;
+    }
+
+    .category-table tbody td:last-child {
+      border-right: none;
+    }
+
+  .category-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .category-table tbody tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }
+.input-row {
+  display: flex;
+  align-items: center; 
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+  .input-wrapper i {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+
+button.btn {
+  width: 40px;
+}

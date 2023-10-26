@@ -1,0 +1,38 @@
+<label class="btn btn-primary">
+    <i class="fa-solid fa-upload me-3"></i>
+    {{uploadButtonText}}
+    <input type="file" #fileInput
+           [accept]="acceptFormatsString"
+           [multiple]="multipleUpload"
+           (change)="onFileChange($event)"
+           style="display: none;">
+</label>
+<button *ngIf="!autoUpload && externalUpload" (click)="uploadFilesExternally()">Upload</button>
+
+<div *ngIf="showProgressBar">
+    <div class="progress">
+        <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+    </div>
+</div>
+
+<div *ngIf="showFilePreview && fileToUpload.length > 0">
+    <div class="row">
+        <div class="col-md-4 mb-3" *ngFor="let file of fileToUpload">
+            <div class="card position-relative">
+                <div *ngIf="isImageFile(file)">
+                    <img [src]="filePreviews[file.name]" class="card-img-top img-fluid" alt="Image Preview">
+                </div>
+                <div *ngIf="!isImageFile(file)" class="card-body">
+                    <p class="card-text">File Name: {{ file.name }}</p>
+                </div>
+                <div class="card-footer position-absolute bottom-0 end-0">
+                    <input *ngIf="multipleUpload && defaultPictureEnabled" type="checkbox" class="form-check-input"
+                           [checked]="isDefaultPicture(file)" (change)="setAsDefaultPicture(file)">
+                </div>
+                <div class="card-footer position-absolute top-0 end-0">
+                    <a (click)="removeFile(file)" class="btn text-danger"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

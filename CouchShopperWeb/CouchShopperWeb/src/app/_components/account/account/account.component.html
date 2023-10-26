@@ -1,0 +1,84 @@
+<div class="modal-body tab-content py-4">
+  <tabset>
+    <tab heading="Sign in" id="SignIn">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="needs-validation" autocomplete="off">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" formControlName="username"
+                 [class.is-invalid]='loginForm.get("username").errors && (loginForm.get("username").touched || loginFormSubmitted)'>
+          <div class="invalid-feedback">Please enter username</div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password
+          <i class="password-toggle-icon fa-solid"
+             [ngClass]="{'fa-eye': showLoginPassword, 'fa-eye-slash': !showLoginPassword}"
+             (click)="showLoginPassword=!showLoginPassword">
+            </i>
+          </label>
+          
+          <div class="password-toggle">
+            <input type="{{ showLoginPassword ? 'text' : 'password' }}" class="form-control" id="loginPassword" formControlName="password"
+                   [class.is-invalid]='loginForm.get("password").errors && (loginForm.get("password").touched || loginFormSubmitted)'>
+            <div class="invalid-feedback">Please enter password</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a routerLink="" class="btn btn-link">Forgot password?</a>
+      </form>
+    </tab>
+    <tab heading="Sign Up" id="SignUp">
+      <form [formGroup]="registerForm" (ngSubmit)="register()" class="needs-validation" autocomplete="off" novalidate="">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input class="form-control" type="text" id="registerName" placeholder="Name Surname" formControlName="fullName"
+                 [class.is-invalid]='registerForm.get("fullName").errors && (registerForm.get("fullName").touched || registerFormSubmitted)'>
+          <div class="invalid-feedback">Please enter name</div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input class="form-control" type="email" id="registerEmail" placeholder="example@couchshopper.com" formControlName="email"
+                 [class.is-invalid]='registerForm.get("email").errors && (registerForm.get("email").touched || registerFormSubmitted)'>
+          <div *ngIf='registerForm.get("email").hasError("required")' class="invalid-feedback">Please enter email</div>
+          <div *ngIf='registerForm.get("email").hasError("email")' class="invalid-feedback">Invalid format</div>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input class="form-control" type="text" id="registerUsername" formControlName="username"
+                 [class.is-invalid]='registerForm.get("username").errors && (registerForm.get("username").touched || registerFormSubmitted)'>
+          <div *ngIf='registerForm.get("username").hasError("required")' class="invalid-feedback">Please enter username</div>
+          <div *ngIf='registerForm.get("username").hasError("minlength")' class="invalid-feedback">Username must be at least 6 characters</div>
+        </div>
+        <div class="form-group">
+          <label for="password">
+            Password
+            <i class="password-toggle-icon fa-solid"
+               [ngClass]="{'fa-eye': showRegisterPassword, 'fa-eye-slash': !showRegisterPassword}"
+               (click)="showRegisterPassword=!showRegisterPassword">
+            </i>
+          </label>
+          <div class="password-toggle">
+            <input type="{{ showRegisterPassword ? 'text' : 'password' }}" class="form-control" id="registerPassword" formControlName="password"
+                   [class.is-invalid]='registerForm.get("password").errors && (registerForm.get("password").touched || registerFormSubmitted)'>
+            <div *ngIf='registerForm.get("password").hasError("required")' class="invalid-feedback">Please enter password</div>
+            <div *ngIf='registerForm.get("password").hasError("minlength")' class="invalid-feedback">Password must be at least 8 characters</div>
+          </div>
+        </div>
+        <div class="form-group">
+
+          <label for="passwordConfirm">Confirm password <i class="password-toggle-icon fa-solid" [ngClass]="{'fa-eye': showRegisterPasswordConfirm, 'fa-eye-slash': !showRegisterPasswordConfirm}" (click)="showRegisterPasswordConfirm=!showRegisterPasswordConfirm"></i></label>
+          <div class="password-toggle">
+            <input type="{{ showRegisterPasswordConfirm ? 'text' : 'password' }}" class="form-control" id="passwordConfirm" formControlName="confirmPassword"
+                   [class.is-invalid]=' registerForm.get("confirmPassword").errors && (registerForm.get("confirmPassword").touched || registerFormSubmitted)'>
+            <div *ngIf='registerForm.get("confirmPassword").hasError("required")' class="invalid-feedback">Please enter password confirmation</div>
+            <div *ngIf='registerForm.get("confirmPassword").hasError("isMatching")' class="invalid-feedback">Passwords do not match</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Register as seller</label>
+          <input type="checkbox" id="isSeller" formControlName="isSeller" />
+        </div>
+        <button class="btn btn-primary" type="submit">Sign up</button>
+      </form>
+    </tab>
+  </tabset>
+</div>

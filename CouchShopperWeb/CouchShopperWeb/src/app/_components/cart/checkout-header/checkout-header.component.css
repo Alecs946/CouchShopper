@@ -1,0 +1,23 @@
+.page-title-overlap .container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.page-title-overlap .order-lg-2 {
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+}
+.page-title-overlap .order-lg-1 {
+  padding-right: 1rem;
+  text-align: center;
+  text-align: start;
+}
+.page-title-overlap h3 {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.spacer {
+  min-height: 3rem;
+}

@@ -1,0 +1,42 @@
+<div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+    <h2 class="h3 py-2 text-center text-sm-start">Your sales / earnings</h2>
+    <div class="row mx-n2">
+        <div class="col-12 px-2">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-end mb-3">
+                        <select id="periodSelect" class="btn btn-primary dropdown-toggle" [(ngModel)]="selectedPeriod" (change)="onSelectPeriod()">
+                            <option value="1">Last 7 days</option>
+                            <option value="2">Last 30 days</option>
+                            <option value="3">Last 90 days</option>
+                        </select>
+                    </div>
+                    <div class="col-12 px-2" #chart style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 px-2">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h4 card-title">Product Sales</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity Sold</th>
+                                <th>Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr *ngFor="let product of productDetails">
+                                <td>{{product.productName}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>{{product.revenue| currency:'USD' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-12 d-flex">
+            <div class="offset-1 col-5" *ngIf="photos && photos.length > 0;else noPhoto">
+                <app-gallery [images]="photos"></app-gallery>
+            </div>
+            <ng-template #noPhoto>
+                <div class="offset-1 col-5 no-product-photo">
+                    <img class="no-product-photo" src="./assets/product.png" />
+                </div>
+            </ng-template>
+            <div class="offset-1 col-5" *ngIf="product">
+                <div class="rounded">
+                    <a class="btn btn-transparent text-primary" [routerLink]="'/edit-product/'+id"><i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
+                <div class="product-details ms-auto pb-3">
+                    <div class="rounded">
+                        <app-product-pricing [price]="product.price" [salePrice]="product.salePrice"></app-product-pricing>
+                    </div>
+                    <div class="rounded">
+                        <app-product-availability [numberOfAvailableProducts]="product.quantity"></app-product-availability>
+                    </div>
+                    <div class="mb-3 col-6 rounded" *ngFor="let item of productOptions">
+                        <app-product-options [productOption]="item"></app-product-options>
+                    </div>
+                </div>
+                <app-product-panels [productDescription]="productDescription" ></app-product-panels>
+            </div>
+        </div>
+    </div>
+</div>
+
+

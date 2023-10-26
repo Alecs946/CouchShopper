@@ -1,0 +1,59 @@
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+button {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.country-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+  .country-table thead th {
+    background-color: #91AEB8;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .country-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .country-table tbody td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+
+    .country-table tbody td:first-child {
+      border-left: none;
+    }
+
+    .country-table tbody td:last-child {
+      border-right: none;
+    }
+
+  .country-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .country-table tbody tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }

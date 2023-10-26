@@ -1,0 +1,196 @@
+<div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+  <h2 class="h3 py-2 text-center text-sm-start">Settings</h2>
+  <tabset>
+    <tab heading="Profile">
+      <div class="bg-secondary rounded-3 p-4 mb-4">
+        <div class="d-flex align-items-center">
+          <img [src]="(settingsService.getProfilePicture() | async) || './assets/avatar.png'" class="rounded-circle avatar" alt="Avatar" />
+          <div class="ps-3">
+            <app-file-upload [autoUpload]="true"
+                             [multipleUpload]="false"
+                             [showFilePreview]="false"
+                             [uploadButtonText]="'Change avatar'"
+                             [acceptedFormats]="['jpg', 'png', 'gif']"
+                             (filesUploaded)="onFilesUploaded($event)"></app-file-upload>
+            <div class="p mb-0 fs-ms text-muted">Upload JPG, GIF, or PNG image. 300 x 300 required.</div>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveUserInfo()">
+        <div class="row gx-4 gy-3">
+          <div class="col-6">
+            <label class="form-label" for="fn">Username</label>
+            <input class="form-control" readonly type="text" formControlName="username">
+          </div>
+          <hr />
+          <div class="col-6">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input class="form-control" type="text" id="fullName" formControlName="fullName"
+                   [class.is-invalid]='profileForm.get("fullName").errors && (profileForm.get("fullName").touched || profileFormSubmitted)'>
+            <div *ngIf='profileForm.get("fullName").hasError("required")' class="invalid-feedback">Please enter name</div>
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="email">Email address</label>
+            <input class="form-control" type="text" id="email" formControlName="email"
+                   [class.is-invalid]='profileForm.get("email").errors && (profileForm.get("email").touched || profileFormSubmitted)'>
+            <div *ngIf='profileForm.get("email").hasError("required")' class="invalid-feedback">Please enter email</div>
+            <div *ngIf='profileForm.get("email").hasError("email")' class="invalid-feedback">Invalid format</div>
+          </div>
+          <hr />
+          <div class="col-12">
+            <div class="col-6">
+              <label class="form-label" for="phone">Phone number</label>
+              <input class="form-control" type="text" id="phone" formControlName="phone"
+                     [class.is-invalid]='profileForm.get("phone").errors && (profileForm.get("phone").touched || profileFormSubmitted)'>
+              <div *ngIf='profileForm.get("phone").hasError("required")' class="invalid-feedback">Please enter phone</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="col-6">
+              <label class="form-label" for="country">Country</label>
+              <select class="form-select" id="country" (change)="onCountryChanged()" formControlName="country"
+                      [class.is-invalid]='profileForm.get("country").errors && (profileForm.get("country").touched || profileFormSubmitted)'>
+                <option [value]="defaultCountry" disabled [selected]="true">{{ defaultCountry }}</option>
+                <option *ngFor="let country of (countries$|async)" [value]="country.key">{{ country.value }}</option>
+              </select>
+              <div *ngIf='profileForm.get("country").hasError("required")' class="invalid-feedback">Please select country</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="city">City</label>
+            <select class="form-select" id="city" formControlName="city"
+                    [class.is-invalid]='profileForm.get("city").errors && (profileForm.get("city").touched || profileFormSubmitted)'>
+              <option [value]="defaultCity" disabled selected>{{ defaultCity }}</option>
+              <option *ngFor="let city of (cities$|async)" [value]="city.key">{{ city.value }}</option>
+            </select>
+            <div *ngIf='profileForm.get("city").hasError("required")' class="invalid-feedback">Please select city</div>
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="address">Address Line</label>
+            <input class="form-control" type="text" id="address" formControlName="address"
+                   [class.is-invalid]='profileForm.get("address").errors && (profileForm.get("address").touched || profileFormSubmitted)'>
+            <div *ngIf='profileForm.get("address").hasError("required")' class="invalid-feedback">Please enter address</div>
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="zip">ZIP Code</label>
+            <input class="form-control" type="text" id="zip" formControlName="zipCode"
+                   [class.is-invalid]='profileForm.get("zipCode").errors && (profileForm.get("zipCode").touched || profileFormSubmitted)' />
+            <div *ngIf='profileForm.get("zipCode").hasError("required")' class="invalid-feedback">Please enter ZIP Code</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3"><i class="fa-solid fa-floppy-disk"></i> Save changes</button>
+      </form>
+    </tab>
+
+    <tab heading="Password">
+      <form [formGroup]="passwordForm" (ngSubmit)="saveNewPassword()">
+        <div class="row gx-4 gy-3 mt-3">
+          <div class="row gx-4 gy-3">
+            <div class="col-6">
+              <label class="form-label" for="currentPassword">
+                Current Password
+                <i class="password-toggle-icon fa-solid"
+                   [ngClass]="{'fa-eye': showCurrentPassword, 'fa-eye-slash': !showCurrentPassword}"
+                   (click)="showCurrentPassword=!showCurrentPassword">
+                </i>
+              </label>
+              <input class="form-control" type="{{ showCurrentPassword ? 'text' : 'password' }}" id="currentPassword" formControlName="currentPassword"
+                     [class.is-invalid]='passwordForm.get("currentPassword").errors && (passwordForm.get("currentPassword").touched || passwordFormSubmitted)'>
+              <div *ngIf='passwordForm.get("currentPassword").hasError("required")' class="invalid-feedback">Please enter current password</div>
+            </div>
+          </div>
+          <div class="row gx-4 gy-3">
+            <div class="col-6">
+              <label class="form-label" for="newPassword">
+                New Password
+                <i class="password-toggle-icon fa-solid"
+                   [ngClass]="{'fa-eye': showNewPassword, 'fa-eye-slash': !showNewPassword}"
+                   (click)="showNewPassword=!showNewPassword">
+                </i>
+              </label>
+              <input class="form-control" type="{{ showNewPassword ? 'text' : 'password' }}" id="newPassword" formControlName="newPassword"
+                     [class.is-invalid]='passwordForm.get("newPassword").errors && (passwordForm.get("newPassword").touched || passwordFormSubmitted)'>
+              <div *ngIf='passwordForm.get("newPassword").hasError("required")' class="invalid-feedback">Please enter password</div>
+              <div *ngIf='passwordForm.get("newPassword").hasError("minlength")' class="invalid-feedback">Password must be at least 8 characters</div>
+            </div>
+          </div>
+          <div class="row gx-4 gy-3">
+            <div class="col-6">
+              <label class="form-label" for="confirmNewPassword">
+                Confirm New Password
+                <i class="password-toggle-icon fa-solid"
+                   [ngClass]="{'fa-eye': showNewConfirmPassword, 'fa-eye-slash': !showNewConfirmPassword}"
+                   (click)="showNewConfirmPassword=!showNewConfirmPassword">
+                </i>
+              </label>
+              <input class="form-control" type="{{ showNewConfirmPassword ? 'text' : 'password' }}" id="confirmNewPassword" formControlName="confirmNewPassword"
+                     [class.is-invalid]='passwordForm.get("confirmNewPassword").errors && (passwordForm.get("confirmNewPassword").touched || passwordFormSubmitted)'>
+              <div *ngIf='passwordForm.get("confirmNewPassword").hasError("required")' class="invalid-feedback">Please enter password confirmation</div>
+              <div *ngIf='passwordForm.get("confirmNewPassword").hasError("isMatching")' class="invalid-feedback">Passwords do not match</div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3"><i class="fa-solid fa-floppy-disk"></i> Save changes</button>
+      </form>
+    </tab>
+
+
+    <tab heading="Payment methods">
+      <div class="bg-secondary rounded-3 p-4 mb-4">
+        <p class="fs-sm text-muted mb-0">Primary payment method is used by default</p>
+      </div>
+      <div *ngIf="(paymentMethods$ | async) as paymentMethods " class="table-responsive fs-md mb-4">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th>Your credit / debit cards</th>
+              <th>Name on card</th>
+              <th>Expires on</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="paymentMethods.length > 0; else noData">
+              <tr *ngFor="let paymentMethod of paymentMethods">
+                <td class="py-3 align-middle">
+                  <div class="d-flex align-items-center">
+                    <div class="ps-2">
+                      <i class="fa-brands fa-cc-{{paymentMethod.cardName| lowercase }} fa-2x me-3"></i>
+                      <span class="fw-medium text-heading me-1">{{ paymentMethod.cardName }}</span>
+                      <span *ngIf="paymentMethod.cardNumber">ending in {{ paymentMethod.cardNumber }} </span>
+                      <span class="align-middle badge badge-info ms-2 text-dark" *ngIf="paymentMethod.isPrimary">Primary</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 align-middle">{{ paymentMethod.nameOnCard }}</td>
+                <td class="py-3 align-middle">{{ paymentMethod.expiryDate }}</td>
+                <td class="py-3 align-middle">
+                  <a *ngIf="!paymentMethod.isPrimary" class="nav-link-style text-primary pe-3" aria-label="Primary" (click)="updatePrimaryPaymentMethod(paymentMethod.id)">
+                    <i class="fa-solid fa-money-check-dollar"></i>
+                  </a>
+                  <a class="nav-link-style text-danger" aria-label="Remove" (click)="deletePayment(paymentMethod.id)">
+                    <i class="fa-solid fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noData>
+        <p>No payment methods found.</p>
+      </ng-template>
+
+      <div class="text-sm-end">
+        <a class="btn btn-primary" (click)="openModal()">Add payment method</a>
+      </div>
+
+    </tab>
+
+  </tabset>
+</div>
+<ng-template #paymentMethod>
+  <app-settings-account-payment (formSubmitted)="paymentMethodSubmitted($event)"></app-settings-account-payment>
+</ng-template>

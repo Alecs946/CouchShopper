@@ -1,0 +1,13 @@
+<div *ngIf="title" class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="custom-close-button" aria-label="Close" (click)="onClose()">
+        <i class="fa-solid fa-x"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+</div>
+<div class="modal-footer">
+    <button *ngIf="hasCancelButton" type="button" class="btn btn-danger" (click)="onClose()">Close</button>
+    <button *ngIf="hasConfirmButton" type="button" class="btn btn-primary" (click)="onConfirm()">Confirm</button>
+</div>

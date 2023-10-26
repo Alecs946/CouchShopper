@@ -1,0 +1,82 @@
+<div class="row mb-5 pb-3">
+    <div class="shadow-lg rounded-3 overflow-hidden">
+        <div class="row">
+            <section class="col-12 pt-lg-4 pb-4 mb-3">
+                <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+                    <!-- Title -->
+                    <div class="d-flex flex-wrap align-items-center border-bottom">
+                        <h2 class="h3 py-2 me-2 text-center text-sm-start">Your purchases</h2>
+                    </div>
+                    <div *ngFor="let purchase of purchases" class="d-sm-flex my-4 pb-3 border-bottom">
+                        <div class="d-flex text-center text-sm-start">
+                            <a class="d-inline-block ms-2 me-2" routerLink="/product-details">
+                                <img [src]="purchase?.imageBase64?('data:image/jpeg;base64,' + purchase.imageBase64) : './assets/product.png'" width="160" alt="Product">
+                            </a>
+                            <div class="pt-2">
+                                <div>
+                                    <h5 class="fs-base mb-2">
+                                        Order:{{purchase.orderId}}
+                                    </h5>
+                                </div>
+                                <h5 class="fs-base mb-2">
+                                    <a class="text-decoration-none" [routerLink]="'/product-details/'+purchase.productId">{{purchase.productName}}</a>
+                                </h5>
+                                <div *ngFor="let option of purchase.selectedOptions" class="fs-sm">
+                                    <span class="text-muted me-2">{{option.optionName}}:</span>
+                                    {{option.optionValue}}
+                                </div>
+                                <div class="fs-lg text-accent pt-2">{{purchase.price | currency:'USD' }}</div>
+                                <p class="mb-0">
+                                    <span class="text-muted fs-sm">Seller:</span><span>&nbsp;{{purchase.sellerId}}</span>
+                                </p>
+                                <div [ngClass]="purchase.orderStatus==1?'text-secondary':purchase.orderStatus==2?'text-info'
+                                                :purchase.orderStatus==4?'text-warning':purchase.orderStatus==5?'text-success':'text-danger'" class="fs-lg text-accent pt-2">
+                                    <label>{{purchase.orderStatusString}}</label>
+                                </div>
+                                <div *ngIf="purchase.orderStatus==5 && !purchase.rated" class="row mt-3">
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" (click)="openModal(purchase.id,purchase.orderId,purchase.sellerId)">Rate this product</a>
+                                    </div>
+                                </div>
+                                <div *ngIf="purchase.orderStatus==3" class="row mt-3">
+                                    <div class="col text-center text-danger">
+                                        <label>Reason:{{purchase.declineReason}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="purchases" class="pagination-container">
+                        <pagination [boundaryLinks]="true"
+                                    [totalItems]="numberOfOrders"
+                                    [itemsPerPage]="itemsPerPage"
+                                    [(ngModel)]="currentPage"
+                                    [maxSize]="maxSizePagination"
+                                    (pageChanged)="purchasesPageChanged($event)"></pagination>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<ng-template #rate>
+    <div class="col-12 pt-4">
+        <h4>Add a Review</h4>
+        <form (submit)="addComment()" class="comment-form mt-3">
+            <div class="form-group">
+                <label for="rating">Seller rating:</label>
+                <rating [(ngModel)]="newComment.sellerRating" [max]="5" [readonly]="false" name="commentRating"></rating>
+            </div>
+            <div class="form-group">
+                <label for="rating">Product rating:</label>
+                <rating [(ngModel)]="newComment.productRating" [max]="5" [readonly]="false" name="commentRating"></rating>
+            </div>
+            <div class="form-group mt-2">
+                <label for="commentText">Comment Details:</label>
+                <textarea [(ngModel)]="newComment.productComment" name="commentText" rows="4" class="form-control" placeholder="">Details</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mb-5">Submit</button>
+        </form>
+    </div>
+
+</ng-template>

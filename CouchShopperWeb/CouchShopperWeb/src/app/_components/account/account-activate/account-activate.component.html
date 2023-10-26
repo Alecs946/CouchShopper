@@ -1,0 +1,13 @@
+<div class="modal-body tab-content py-4">
+  <h3>Account requires activation</h3>
+  <h6>Please enter the code you received</h6>
+  <form [formGroup]="activationForm" (ngSubmit)="activateAccount()" class="needs-validation" autocomplete="off">
+    <div class="form-group">
+      <label for="activationCode">Activation Code:</label>
+      <input [class.is-invalid]='activationForm.get("activationCode").errors && (activationForm.get("activationCode").touched || isFormSubmitted)'
+             type="text" class="form-control" id="activationCode" formControlName="activationCode">
+    <div class="invalid-feedback">Please enter activation code</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Activate Account</button>
+  </form>
+</div>

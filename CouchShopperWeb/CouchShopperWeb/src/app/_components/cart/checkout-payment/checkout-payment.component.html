@@ -1,0 +1,69 @@
+<div class="container pb-5 mb-2 mb-md-4">
+    <div class="row">
+        <section class="col-lg-8">
+            <h6 class="text-light mb-0">Choose payment method</h6>
+            <div *ngIf="(paymentMethods$ | async) as paymentMethods" class="table-responsive fs-md mb-4">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Your credit / debit cards</th>
+                            <th>Name on card</th>
+                            <th>Expires on</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="paymentMethods.length > 0">
+                            <tr *ngFor="let paymentMethod of paymentMethods">
+                                <td class="py-3 align-middle text-center">
+                                    <input type="radio"
+                                           name="selectedPaymentMethod"
+                                           [value]="paymentMethod"
+                                           [checked]="savedPaymentMethod?savedPaymentMethod.id==paymentMethod.id :paymentMethod.isPrimary"
+                                           (change)="onPaymentMethodSelected(paymentMethod)">
+                                </td>
+                                <td class="py-3 align-middle">
+                                    <div class="d-flex align-items-center">
+                                        <div class="ps-2">
+
+                                            <i class="fa-brands fa-cc-{{paymentMethod.cardName| lowercase }} fa-2x me-3"></i>
+                                            <span class="fw-medium text-heading me-1">{{ paymentMethod.cardName }}</span>
+                                            <span *ngIf="paymentMethod.cardNumber">ending in {{ paymentMethod.cardNumber }} </span>
+                                            <span class="align-middle badge badge-info ms-2 text-dark" *ngIf="paymentMethod.isPrimary">Primary</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 align-middle">{{ paymentMethod.nameOnCard }}</td>
+                                <td class="py-3 align-middle">{{ paymentMethod.expiryDate }}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <div class="text-sm-end mt-5">
+                    <button type="button" class="btn btn-primary" (click)="addNewPayment=!addNewPayment">Add payment method</button>
+                </div>
+            </div>
+            <app-settings-account-payment (formSubmitted)="paymentAdded($event)" *ngIf="addNewPayment"></app-settings-account-payment>
+            <div class="d-flex pt-4 mt-3">
+                <div class="w-50 pe-3">
+                    <button class="btn btn-secondary d-block w-100" (click)="back()">
+                        <i class="fa-solid fa-angle-left me-2"></i>
+                        <span class="d-none d-sm-inline">Back to Shipping method</span>
+                    </button>
+                </div>
+                <div class="w-50 ps-2">
+                    <button class="btn btn-primary d-block w-100" (click)="proceed()">
+                        <span class="d-none d-sm-inline">Review your order</span>
+                        <i class="fa-solid fa-angle-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
+            <app-checkout-aside [products]="products"></app-checkout-aside>
+        </aside>
+    </div>
+</div>

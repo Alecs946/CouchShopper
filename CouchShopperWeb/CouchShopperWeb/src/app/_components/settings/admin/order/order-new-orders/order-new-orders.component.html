@@ -1,0 +1,62 @@
+<div *ngIf="orders && orders?.orders?.length>0;else noOrders" class="container">
+    <div *ngFor="let order of orders.orders" class="mt-3">
+        <accordion>
+            <accordion-group heading="{{ order.orderId}}">
+                <div class="order-expand-details">
+                    <div *ngFor="let product of order.orderItems" class="d-sm-flex justify-content-between my-4 pb-3 border-bottom">
+                        <div class="d-sm-flex text-center text-sm-start">
+                            <a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" routerLink="/product-details">
+                                <img [src]="product?.imageBase64?('data:image/jpeg;base64,' + product.imageBase64) : './assets/product.png'" width="160" alt="Product">
+                            </a>
+                            <div class="pt-2">
+                                <h4 class="product-title fs-base mb-2">
+                                    <a routerLink="/product-details">{{product.productName}}</a>
+                                </h4>
+                                <div *ngFor="let option of product.selectedOptions" class="fs-sm">
+                                    <span class="text-muted me-2">{{option.optionName}}:</span>
+                                    {{option.optionValue}}
+                                </div>
+                                <div class="fs-lg text-accent pt-2">{{product.price | currency:'USD' }}</div>
+                            </div>
+                        </div>
+                        <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-end" style="max-width: 9rem;">
+                            <p class="mb-0">
+                                <span class="text-muted fs-sm">Quantity:</span><span>&nbsp;{{product.quantity}}</span>
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button *ngIf="!product.isApproved && !product.isDeclined" class="btn btn-success me-2" (click)="approveProduct(order,product)">Approve</button>
+                            <button *ngIf="!product.isApproved && !product.isDeclined" class="btn btn-danger" (click)="declineProduct(order,product)">Decline</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div *ngIf="order.showConfirmation" class="d-flex align-items-center">
+                            <button class="btn btn-primary me-2" (click)="confirmApproval(order)">Confirm</button>
+                        </div>
+                        <div *ngIf="order.showReason" class="d-flex row align-items-center">
+                            <div class="col-12">
+                                <button class="btn btn-danger" (click)="confirmDecline(order)">Decline</button>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <textarea [(ngModel)]="order.declineReason" class="form-control" placeholder="Enter reason for decline"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="pagination-container">
+        <pagination [boundaryLinks]="true"
+                    [totalItems]="numberOfOrders"
+                    [itemsPerPage]="itemsPerPage"
+                    [(ngModel)]="currentPage"
+                    [maxSize]="maxSizePagination"
+                    (pageChanged)="ordersPageChanged($event)"></pagination>
+    </div>
+</div>
+<ng-template #noOrders>
+    <div class="row">
+        <h5 class="text-muted align-items-center text-center">Currently there is no orders in this status</h5>
+    </div>
+</ng-template>

@@ -1,0 +1,130 @@
+<!-- account-menu.component.html -->
+<div class="h-100 border-end mb-2">
+    <div class="d-block collapse" id="account-menu">
+        <div *appHasRole="['1','2','3']" class="bg-secondary p-4">
+            <h3 class="fs-sm mb-0 text-muted">Account</h3>
+        </div>
+        <ul class="list-unstyled mb-0">
+            <li *appHasRole="['1','2','3']"  class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 1}" routerLink="/settings">
+                    <i class="ci-settings opacity-60 me-2"></i>
+                    Settings
+                </a>
+            </li>
+            <li *appHasRole="['3']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 2}" routerLink="/purchases">
+                    <i class="ci-basket opacity-60 me-2"></i>
+                    Purchases
+                </a>
+            </li>
+            <li *appHasRole="['3']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 3}" routerLink="/favorites">
+                    <i class="ci-heart opacity-60 me-2"></i>
+                    Favorites
+                    <span class="fs-sm text-muted ms-auto">{{favorites$|async}}</span>
+                </a>
+            </li>
+        </ul>
+        <div *appHasRole="['2']" class="bg-secondary p-4">
+            <h3 class="fs-sm mb-0 text-muted">Seller Dashboard</h3>
+        </div>
+        <ul *appHasRole="['2']" class="list-unstyled mb-0">
+            <li *appHasRole="['2']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 4}" routerLink="/sales">
+                    <i class="ci-dollar opacity-60 me-2"></i>
+                    Sales
+                    <span class="fs-sm text-muted ms-auto">{{balance$|async| currency:'USD'}}</span>
+                </a>
+            </li>
+            <li *appHasRole="['2']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 5}" routerLink="/products">
+                    <i class="ci-package opacity-60 me-2"></i>
+                    Products
+                    <span class="fs-sm text-muted ms-auto">{{productCount}}</span>
+                </a>
+            </li>
+            <li *appHasRole="['2']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 8}" routerLink="/payouts">
+                    <i class="ci-currency-exchange opacity-60 me-2"></i>
+                    Payouts
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div *appHasRole="['1']" class="bg-secondary p-4">
+            <h3 class="fs-sm mb-0 text-muted">Admin Dashboard</h3>
+        </div>
+        <ul *appHasRole="['1']" class="list-unstyled mb-0">
+            <li *appHasRole="['1']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 9}" routerLink="/countries">
+                    <i class="fa-solid fa-earth-europe me-2"></i>
+                    Countries
+                </a>
+            </li>
+            <li *appHasRole="['1']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 10}" routerLink="/categories">
+                    <i class="fa-solid fa-clipboard-list me-2"></i>
+                    Categories
+                </a>
+            </li>
+            <li *appHasRole="['1']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 11}" routerLink="/icons">
+                    <i class="fa-solid fa-icons me-2"></i>
+                    Icons
+                </a>
+            </li>
+            <li *appHasRole="['1']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" (click)="toggleHomeSubmenu()">
+                    <i class="fa-solid fa-house me-2"></i>
+                    Home
+                </a>
+                <ul class="submenu" [collapse]="isHomeSubmenuCollapsed">
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 13}" (isSubmenuCollapsed)="false" routerLink="/special-offer">
+                            <i class="fa-solid fa-award me-2"></i>
+                            Special Offer
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li *appHasRole="['1']" class="border-bottom mb-0">
+                <a class="nav-link-style d-flex align-items-center px-4 py-3" (click)="toggleOrderSubmenu()">
+                    <i class="fa-solid fa-envelope me-2"></i>
+                    Orders
+                </a>
+                <ul class="submenu" [collapse]="isOrderSubmenuCollapsed">
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 15}" (isSubmenuCollapsed)="false" routerLink="/order-new">
+                            <i class="fa-solid fa-boxes-packing me-2"></i>
+                            New Orders
+                        </a>
+                    </li>
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 16}" (isSubmenuCollapsed)="false" routerLink="/order-approved">
+                            <i class="fa-solid fa-dolly me-2"></i>
+                            Approved Orders
+                        </a>
+                    </li>
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 17}" (isSubmenuCollapsed)="false" routerLink="/order-sent">
+                            <i class="fa-solid fa-truck-ramp-box me-2"></i>
+                            Sent Orders
+                        </a>
+                    </li>
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 18}" (isSubmenuCollapsed)="false" routerLink="/order-delivered">
+                            <i class="fa-solid fa-box-open me-2"></i>
+                            Delivered Orders
+                        </a>
+                    </li>
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" [ngClass]="{'active':mode === 19}" (isSubmenuCollapsed)="false" routerLink="/order-declined">
+                            <i class="fa-solid fa-rectangle-xmark me-2"></i>
+                            Declined Orders
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

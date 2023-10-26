@@ -1,0 +1,11 @@
+.dropdown-item > span > i {
+  width:20px;
+  height:20px;
+}
+.dropdown-toggle {
+  padding-bottom: 0.4rem;
+}
+.avatar {
+  height: 40px;
+  width: 40px;
+}

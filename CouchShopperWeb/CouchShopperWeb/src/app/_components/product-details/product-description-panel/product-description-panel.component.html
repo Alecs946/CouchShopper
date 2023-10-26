@@ -1,0 +1,19 @@
+<div class="collapsed-group">
+    <div class="collapsed-item">
+        <h4 class="collapsed-header">
+            <button class="collapsed-button" role="button"
+                    [class.expanded]="!isCollapsed"
+                    (click)="isCollapsed = !isCollapsed">
+                <i class="fas fa-circle-info me-2"></i> Product info
+                <i class="fas" [ngClass]="isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+            </button>
+        </h4>
+        <div id="productInfo" [collapse]="isCollapsed">
+            <div class="collapsed-body">
+                <h6><strong>Brand</strong> {{description.brand}}</h6>
+                <h6 *ngIf="description.model"><strong>Model</strong> {{description.model}}</h6>
+                <p>{{description.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

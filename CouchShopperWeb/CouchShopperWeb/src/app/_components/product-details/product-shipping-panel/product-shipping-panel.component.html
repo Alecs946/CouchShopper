@@ -1,0 +1,21 @@
+<div class="collapsed-item">
+    <h3 class="collapsed-header">
+        <button class="collapsed-button collapsed"
+                role="button" data-bs-toggle="collapse"
+                 (click)="isCollapsed = !isCollapsed">
+            <i class="fas fa-truck me-2"></i>Shipping options
+            <i class="fas" [ngClass]="isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+        </button>
+    </h3>
+    <div class="collapsed-collapse collapse" id="shippingOptions" [collapse]="isCollapsed">
+        <div class="collapsed-body fs-sm">
+            <div class="d-flex justify-content-between border-bottom pb-2" *ngFor="let item of shipping">
+                <div>
+                    <div class="fw-semibold text-dark">{{item.shippingMethodName}}</div>
+                    <div class="fs-sm text-muted">{{item.estimatedTime}} day(s)</div>
+                </div>
+                <div>{{item.shippingPrice| currency:'USD' }}</div>
+            </div>
+        </div>
+    </div>
+</div>

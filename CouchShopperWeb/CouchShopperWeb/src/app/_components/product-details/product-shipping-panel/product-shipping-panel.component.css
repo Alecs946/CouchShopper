@@ -1,0 +1,33 @@
+.collapsed-group {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.collapsed-item {
+  border-bottom: 1px solid #ccc;
+}
+
+.collapsed-header {
+  padding: 5px;
+  background-color: #f5f5f5;
+  font-size: 1.2rem;
+}
+
+.collapsed-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+  .collapsed-button:focus {
+    outline: none;
+  }
+
+.collapsed-body {
+  padding: 10px;
+  background-color: #f5f5f5;
+}

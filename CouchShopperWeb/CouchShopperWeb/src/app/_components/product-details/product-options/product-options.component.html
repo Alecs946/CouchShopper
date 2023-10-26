@@ -1,0 +1,10 @@
+<div>
+    <div class="d-flex justify-content-between align-items-center pb-1">
+        <label class="form-label" for="product-size">{{productOption.optionName}}:</label>
+    </div>
+    <div>
+        <select class="form-select" [(ngModel)]="selectedOption" (change)="onOptionChange()">
+            <option *ngFor="let item of productOption.optionValues" [value]="item.name">{{ item.name }}</option>
+        </select>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container mb-5 pb-3">
+    <div class="shadow-lg rounded-3 overflow-hidden">
+        <div class="row">
+            <aside class="col-lg-4 pe-xl-5">
+                <app-settings-aside [mode]="mode"></app-settings-aside>
+            </aside>
+            <section *ngIf="mode === 1" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-account></app-settings-account>
+            </section>
+            <section *ngIf="mode === 2" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-purchases></app-settings-purchases>
+            </section>
+            <section *ngIf="mode === 3" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-favorites></app-settings-favorites>
+            </section>
+            <section *ngIf="mode === 4" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-sales></app-settings-sales>
+            </section>
+            <section *ngIf="mode === 5" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-products></app-settings-products>
+            </section>
+            <section *ngIf="mode === 7" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-new-product></app-settings-new-product>
+            </section>
+            <section *ngIf="mode === 8" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-payouts></app-settings-payouts>
+            </section>
+            <section *ngIf="mode === 9" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-countries></app-countries>
+            </section>
+            <section *ngIf="mode === 10" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-categories></app-categories>
+            </section>
+            <section *ngIf="mode === 11" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-icons></app-icons>
+            </section>
+            <section *ngIf="mode === 12" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-new-product [productId]="id"></app-settings-new-product>
+            </section>
+            <section *ngIf="mode === 13" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-settings-home></app-settings-home>
+            </section>
+        </div>
+    </div>
+</div>

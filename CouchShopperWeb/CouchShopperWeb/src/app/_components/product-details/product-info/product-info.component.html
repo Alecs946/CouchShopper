@@ -1,0 +1,34 @@
+<div class="pt-4 pt-lg-0">
+    <div class="col-lg-4">
+        <app-seller-info [sellerInfo]="sellerInfo"></app-seller-info>
+    </div>
+    <div class="product-details ms-auto pb-3">
+      <div class="rounded">
+        <app-product-review [rating]="productDetails.rating" [numberOfReviews]="productDetails.numberOfReviews" [productId]="id"></app-product-review>
+      </div>
+      <div class="rounded">
+        <app-product-pricing [price]="productDetails.price" [salePrice]="productDetails.salePrice"></app-product-pricing>
+      </div>
+      <div class="rounded">
+        <app-product-availability [numberOfAvailableProducts]="productDetails.numberOfAvailableProducts"></app-product-availability>
+      </div>
+      <div *ngIf="(currentUser$|async);else noAuth">
+        <form *ngIf="(productDetails.numberOfAvailableProducts && productDetails.numberOfAvailableProducts>0)" class="mb-grid-gutter row" method="post">
+          <div class="mb-3 col-6 rounded" *ngFor="let item of productDetails.productOptions;let i = index">
+            <app-product-options [productOption]="item" [index]="i" (valueChanged)="optionChanged($event)"></app-product-options>
+          </div>
+          <div class="mb-3 rounded d-flex align-items-center">
+            <input class="col-2 rounded me-3" [(ngModel)]="quantity" name="quantity" value="1" [max]="productDetails.numberOfAvailableProducts" min="1" type="number" />
+            <button class="btn btn-primary me-0 me-lg-n3" type="button" (click)="addToCartClick()">
+              <i class="fa-solid fa-cart-plus"></i>
+              Add to Cart
+            </button>
+          </div>
+        </form>
+      </div>
+      <ng-template #noAuth>
+        <h5 class="text-muted align-items-center text-center">To purchase this product please sign in </h5>
+      </ng-template>
+      <app-product-panels [productDescription]="productDescription" [shippingOptions]="shippingOptions"></app-product-panels>
+    </div>
+</div>

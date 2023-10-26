@@ -1,0 +1,11 @@
+<div class="icon-picker-container">
+    <a (click)="isPopupVisible=!isPopupVisible"><i class="fa-solid fa-eye-dropper"></i></a>
+  <div *ngIf="isPopupVisible" class="icon-picker-popup">
+    <ul>
+      <li *ngFor="let iconName of fontAwesomeIcons" (click)="selectIcon(iconName)">
+        <i class="fas" [ngClass]="iconName"></i>
+        <span>{{ iconName }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+.background-color-picker {
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  margin-left: 5px; 
+}
+
+.form-group.background-color-picker {
+  display: flex;
+  align-items: center;
+}
+
+.special-offer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.image-container {
+  width: 200px;
+  height: 200px; 
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+  .image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+.image-overlay {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.image-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.image-description {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
+
+.offer-publish-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+}
+

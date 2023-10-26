@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-12">
+        <app-seller-header [sellerHeader]="seller"></app-seller-header>
+    </div>
+</div>
+<div class="container pt-5">
+    <div class="row">
+        <div class="offset-2 col-8">
+            <app-product-grid [products]="products" [columns]="3" [rows]="2"></app-product-grid>
+            <div *ngIf="products" class="pagination-container">
+                <pagination [boundaryLinks]="true"
+                            [totalItems]="numberOfProducts"
+                            [itemsPerPage]="itemsPerPage"
+                            [(ngModel)]="currentPage"
+                            [maxSize]="maxSizePagination"
+                            (pageChanged)="productsPageChanged($event)"></pagination>
+            </div>
+        </div>
+    </div>
+</div>
+

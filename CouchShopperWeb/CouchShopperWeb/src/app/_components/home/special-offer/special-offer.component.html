@@ -1,0 +1,11 @@
+<div *ngIf="specialOffer" class="card border-0 carousel-container">
+    <carousel class="top_carousel" [isAnimated]="true" [showIndicators]="false" [interval]="2000">
+        <slide *ngFor="let offer of specialOffer.slides" class="top-slide" [style.backgroundColor]="offer.backgroundColor">
+            <img [src]="'data:image/png;base64,'+offer.imageBase64" alt="first slide" class="slide-img mx-auto d-block">
+            <div class="carousel-caption">
+                <h3 [style.color]="offer.textColor">{{offer.title}}</h3>
+                <p [style.color]="offer.textColor">{{offer.description}}</p>
+            </div>
+        </slide>
+    </carousel>
+</div>

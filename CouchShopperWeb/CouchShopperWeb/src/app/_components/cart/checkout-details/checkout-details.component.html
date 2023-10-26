@@ -1,0 +1,97 @@
+<div *ngIf="user && shippingInfoModel" class="container">
+    <div class="row">
+        <section class="col-lg-8">
+            <div class="d-sm-flex justify-content-between align-items-center bg-secondary p-4 rounded-3 mb-grid-gutter">
+                <div class="d-flex align-items-center">
+                    <div class="img-thumbnail rounded-circle position-relative flex-shrink-0">
+                        <img *ngIf="user.imageBase64" class="rounded-circle avatar" src="{{user.imageBase64}}" alt="user avatar">
+                    </div>
+                    <div class="ps-3">
+                        <h3 class="fs-base mb-0">{{user.username}}</h3>
+                        <span class="text-accent fs-sm">{{user.email}}</span>
+                    </div>
+                </div>
+                <button class="btn btn-light btn-sm btn-shadow mt-3 mt-sm-0" routerLink="/settings">
+                    <i class="fa-solid fa-user-pen me-2"></i>Edit profile
+                </button>
+            </div>
+            <form [formGroup]="shippingInfoForm" (ngSubmit)="saveShippingInfo()" class="needs-validation" autocomplete="off" novalidate="">
+                <h6 class="text-light mb-0">Shipping address</h6>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="checkout-fn">Name</label>
+                            <input class="form-control" type="text" formControlName="fullName">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="checkout-email">E-mail Address</label>
+                            <input class="form-control" type="email" formControlName="address">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="checkout-phone">Phone Number</label>
+                            <input class="form-control" type="text" formControlName="phoneNumber">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="form-label" for="country">Country</label>
+                        <select class="form-select" id="country" (change)="onCountryChanged()" formControlName="country">
+                            <option *ngFor="let country of (countries$|async)" [value]="country.key">{{ country.value }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="city">City</label>
+                        <select class="form-select" id="city" formControlName="city">
+                            <option *ngFor="let city of (cities$|async)" [value]="city.key">{{ city.value }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="checkout-zip">ZIP Code</label>
+                            <input class="form-control" type="text" formControlName="zipCode">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="checkout-address-1">Address</label>
+                            <input class="form-control" type="text" formControlName="address">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex pt-4 mt-3">
+                    <div class="w-50 pe-3">
+                        <button class="btn btn-secondary d-block w-100" (click)="back()">
+                            <i class="fa-solid fa-angle-left me-2"></i>
+                            <span class="d-none d-sm-inline">Back to Cart</span>
+                        </button>
+                    </div>
+                    <div class="w-50 ps-2">
+                        <button type="submit" class="btn btn-primary d-block w-100">
+                            <span class="d-none d-sm-inline">Proceed to Shipping</span>
+                            <i class="fa-solid fa-angle-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <aside *ngIf="subtotal && products" class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
+            <app-checkout-aside [subtotal]="subtotal" [products]="products"></app-checkout-aside>
+        </aside>
+    </div>
+</div>

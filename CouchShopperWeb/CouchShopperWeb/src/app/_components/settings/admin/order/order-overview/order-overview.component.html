@@ -1,0 +1,25 @@
+<div class="container mb-5 pb-3">
+    <div class="shadow-lg rounded-3 overflow-hidden">
+        <div class="row">
+            <aside class="col-lg-4 pe-xl-5">
+                <app-settings-aside [mode]="mode"></app-settings-aside>
+            </aside>
+            <section *ngIf="mode === 15" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-order-new-orders></app-order-new-orders>
+            </section>
+            <section *ngIf="mode === 16" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-order-approved-orders></app-order-approved-orders>
+            </section>
+            <section *ngIf="mode === 17" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-order-sent-orders></app-order-sent-orders>
+            </section>
+            <section *ngIf="mode === 18" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-order-delivered-orders></app-order-delivered-orders>
+            </section>
+            <section *ngIf="mode === 19" class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <app-order-declined-orders></app-order-declined-orders>
+            </section>
+
+        </div>
+    </div>
+</div>

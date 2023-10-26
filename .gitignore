@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CouchShopperAPI/.vs
+/CouchShopperAPI/CouchShopper.Business/bin/Debug
+/CouchShopperAPI/CouchShopper.Business/obj
+/CouchShopperAPI/CouchShopper.Data/bin/Debug
+/CouchShopperAPI/CouchShopper.Data/obj
+/CouchShopperAPI/CouchShopperAPI/bin/Debug
+/CouchShopperAPI/CouchShopperAPI/obj
+/CouchShopperAPI/CouchShopperAPI/Properties/launchSettings.json
+/CouchShopperAPI/CouchShopperAPI/CouchShopper.API.csproj.user
+/CouchShopperWeb/.vs/CouchShopperWeb
+/CouchShopperWeb/CouchShopperWeb/.vscode
+/CouchShopperWeb/CouchShopperWeb/obj/Debug

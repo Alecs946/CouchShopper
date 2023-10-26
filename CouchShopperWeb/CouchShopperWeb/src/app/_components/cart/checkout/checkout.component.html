@@ -1,0 +1,51 @@
+<!-- checkout.component.html -->
+<app-checkout-header [title]="title" [stepCount]="currentStep" (stepChanged)="goToStep($event)"></app-checkout-header>
+
+<div *ngIf="products" class="container ">
+    <div *ngIf="currentStep === 1">
+        <div>
+            <app-cart (quantityChange)="quantityChanged($event)"
+                      (productRemove)="productRemoved($event)"
+                      [products]="products"
+                      [subtotal]="subtotal"
+                      (stepChanged)="goToStep($event)">
+            </app-cart>
+        </div>
+    </div>
+
+    <div *ngIf="currentStep === 2">
+        <div *ngIf="products">
+            <app-checkout-details [subtotal]="subtotal"
+                                  [products]="products"
+                                  (stepChanged)="goToStep($event)">
+            </app-checkout-details>
+        </div>
+    </div>
+
+    <div *ngIf="currentStep === 3">
+        <div>
+            <app-checkout-shipping [products]="products"
+                                   (stepChanged)="goToStep($event)">
+            </app-checkout-shipping>
+        </div>
+    </div>
+
+    <div *ngIf="currentStep === 4">
+        <div>
+            <app-checkout-payment [products]="products"
+                                  (stepChanged)="goToStep($event)">
+            </app-checkout-payment>
+        </div>
+    </div>
+
+    <div *ngIf="currentStep === 5">
+        <div>
+            <app-checkout-review (orderComplete)="submitForm($event)"
+                                 [subtotal]="subtotal"
+                                 [products]="products"
+                                 (stepChanged)="goToStep($event)">
+            </app-checkout-review>
+        </div>
+    </div>
+</div>
+

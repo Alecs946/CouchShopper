@@ -1,0 +1,21 @@
+<div class="d-flex flex-column align-items-center">
+    <div class="px-4 pt-5 pb-4">
+        <div>
+            <h2 class="h3 text-center mb-4">Search resault</h2>
+        </div>
+        <div *ngIf="products && products.length>0;else notFound" class="row pt-4">
+            <app-product-grid [products]="products" [columns]="GetNumberOfProducts()"></app-product-grid>
+            <div *ngIf="products" class="pagination-container">
+                <pagination [boundaryLinks]="true"
+                            [totalItems]="numberOfResaults"
+                            [itemsPerPage]="itemsPerPage"
+                            [(ngModel)]="currentPage"
+                            [maxSize]="maxSizePagination"
+                            (pageChanged)="pageChanged($event)"></pagination>
+            </div>
+        </div>
+        <ng-template #notFound>
+            <h5>No resaults for this search</h5>
+        </ng-template>
+    </div>
+</div>

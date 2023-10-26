@@ -1,0 +1,12 @@
+<div *ngIf="sellerInfo" class="row">
+    <div class="align-items-center pb-3">
+        <div class="flex-shrink-0">
+            <img class="rounded-circle avatar" [src]="sellerInfo.imageBase64?'data:image/png;base64,' +sellerInfo.imageBase64:'./assets/avatar.png'"  alt="">
+        </div>
+        <div class="ps-3">
+            <h3 class="fs-lg mb-0">{{sellerInfo.sellerName}}</h3>
+            <span class="d-block text-muted fs-ms pt-1 pb-2">Member since {{sellerInfo.memberSince}}</span>
+            <a class="btn btn-primary btn-sm" [routerLink]="'/seller/'+sellerInfo.sellerName">View Seller</a>
+        </div>
+    </div>
+</div>

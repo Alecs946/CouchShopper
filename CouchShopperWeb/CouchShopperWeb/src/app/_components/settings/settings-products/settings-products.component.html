@@ -1,0 +1,54 @@
+<div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+    <!-- Title -->
+    <div><a class="btn btn-transparent text-primary" routerLink="/new-product"><i class="fa-solid fa-plus"></i></a></div>
+    <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom">
+        <h2 class="h3 py-2 me-2 text-center text-sm-start">Your products</h2>
+        <div class="py-2">
+            <div class="d-flex flex-nowrap align-items-center pb-3">
+                <label class="form-label fw-normal text-nowrap mb-0 me-2" for="sorting">Sort by:</label>
+                <select class="form-select form-select-sm me-2" id="sorting">
+                    <option>Date Created</option>
+                    <option>Product Name</option>
+                    <option>Price</option>
+                    <option>Your Rating</option>
+                    <option>Updates</option>
+                </select>
+                <button class="btn btn-outline-secondary btn-sm px-2" type="button"><i class="ci-arrow-up"></i></button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="products;else noProduct">
+        <div *ngFor="let product of products">
+            <div class="d-block d-sm-flex align-items-center py-4 border-bottom">
+                <div class="d-block mb-3 mb-sm-0 me-sm-4 ms-sm-0 mx-auto ">
+                    <img class="rounded-3 product-image"
+                         [src]="product.photo?.content ? 'data:image/png;base64,' + product.photo.content : './assets/product.png'"
+                         alt="Product">
+                </div>
+                <div class="text-center text-sm-start">
+                    <h3 class="h6 product-title mb-2"><a [routerLink]="'/product-overview/'+product.id">{{product.name}}</a></h3>
+                    <div class="d-inline-block text-accent">{{product.price|currency:'USD'}}</div>
+                    <div class="d-inline-block text-muted fs-ms border-start ms-2 ps-2">Sales: <span class="fw-medium">{{product.numberOfSales}}</span></div>
+                    <div class="d-inline-block text-muted fs-ms border-start ms-2 ps-2">Earnings: <span class="fw-medium">{{product.earnings| currency:'USD'}}</span></div>
+                    <div class="d-flex justify-content-center justify-content-sm-start pt-3">
+                        <button class="btn bg-faded-danger btn-icon" type="button" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                            <i class="fa-solid fa-trash text-danger" (click)="deleteProduct(product.id)"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container">
+            <pagination [boundaryLinks]="true"
+                        [totalItems]="numberOfProducts"
+                        [itemsPerPage]="itemsPerPage"
+                        [(ngModel)]="currentPage"
+                        [maxSize]="maxSizePagination"
+                        (pageChanged)="productPageChanged($event)"></pagination>
+        </div>
+    </div>
+    <ng-template #noProduct>
+        <h3>Currently there is no products</h3>
+    </ng-template>
+</div>

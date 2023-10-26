@@ -1,0 +1,38 @@
+.carousel-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.product-container {
+  padding: 10px;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 576px) {
+  .product-container {
+    flex: 0 0 100%;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .product-container {
+    flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .product-container {
+    flex: 0 0 33.33%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-container {
+    flex: 0 0 25%;
+  }
+}

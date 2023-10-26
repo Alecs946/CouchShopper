@@ -1,0 +1,84 @@
+<div class="tab-container">
+    <tabset>
+        <button [class]="!showSpecialOfferForm?'btn btn-transparent text-primary':'btn btn-transparent text-danger' " (click)="showSpecialOfferForm=!showSpecialOfferForm">
+            <i [class]="!showSpecialOfferForm?'fa-solid fa-plus':'fa-solid fa-x'"></i>
+        </button>
+        <tab [heading]="'Special Offer'" [active]="isSpecialOfferTab()" (selectTab)="navigateToSpecialOfferTab()">
+            <div *ngIf="specialOfferForm" class="container pt-2 px-4 ps-lg-0 pe-xl-5">
+                <h3 class="h3 pt-2 pb-4 mb-0 text-center text-sm-start border-bottom">Special Offer Slides</h3>
+
+                <div [hidden]="!showSpecialOfferForm" class="mt-3">
+                    <form class="form-control" [formGroup]="specialOfferForm" (ngSubmit)="submitSpecialOffer()">
+                      <div class="form-group mt-3">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" formControlName="title" required
+                               [class.is-invalid]='specialOfferForm.get("title").errors && (specialOfferForm.get("title").touched || specialOfferFormSubmitted)'>
+                        <div class="invalid-feedback">Please enter title</div>
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" formControlName="description" required
+                                  [class.is-invalid]='specialOfferForm.get("description").errors && (specialOfferForm.get("description").touched || specialOfferFormSubmitted)'></textarea>
+                        <div class="invalid-feedback">Please enter description</div>
+                      </div>
+                        <div class="form-group mt-3">
+                            <label for="backgroundColor">Background Color</label>
+                            <input type="color" class="ms-5 background-color-picker" id="backgroundColor" formControlName="backgroundColor">
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="backgroundColor">Text Color</label>
+                            <input type="color" class="ms-5 background-color-picker" id="textColor" formControlName="textColor">
+                        </div>
+                        <div class="form-group mt-3">
+                          <label for="imageBase64">Photo</label>
+                          <app-file-upload class="ms-5" #fileUploadComponent [autoUpload]="false"
+                                           [multipleUpload]="false"
+                                           [showFilePreview]="true"
+                                           [uploadButtonText]="''"
+                                           [defaultPictureEnabled]="false"
+                                           [acceptedFormats]="['jpg', 'png', 'gif']"
+                                           (filesChanged)="fileOnChange($event)"></app-file-upload>
+                          <div *ngIf='!files[0] && specialOfferFormSubmitted' class="text-danger">Please select picture</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                    </form>
+                </div>
+                <div>
+                    <div *ngIf="specialOffers" class="card border-0">
+                        <div>
+                            <div *ngFor="let offer of specialOffers; let i = index" class="special-offer-container mt-3" [style.backgroundColor]="offer.backgroundColor">
+                                <div class="image-container">
+                                    <img [src]="'data:image/png;base64,' +offer.imageBase64" alt="Image">
+                                </div>
+                                <div class="image-overlay">
+                                    <h2 class="image-title" [style.color]="offer.textColor">{{offer.title}}</h2>
+                                    <p class="image-description" [style.color]="offer.textColor">{{offer.description}}</p>
+                                </div>
+                                <div class="offer-publish-button">
+                                    <button class="btn btn-primary mt-3 " (click)="publishSpecialOffers(offer.id)">
+                                        <i [class]="!offer.published?'fa-solid fa-share-from-square':'fa-solid fa-hand'"></i>
+                                    </button>
+                                    <button class="btn btn-primary mt-3 " (click)="editSpecialOffer(offer.id)">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="btn btn-primary mt-3 " (click)="deleteSpecialOffer(offer.id)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-container mt-3">
+                <pagination [boundaryLinks]="true"
+                            [totalItems]="specialOffersNumber"
+                            [itemsPerPage]="itemsPerPage"
+                            [(ngModel)]="specialOfferCurrentPage"
+                            [maxSize]="maxSizePagination"
+                            (pageChanged)="specialOfferPageChanged($event)"></pagination>
+            </div>
+        </tab>
+        
+    </tabset>
+</div>

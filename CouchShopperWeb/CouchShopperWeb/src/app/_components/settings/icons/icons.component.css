@@ -1,0 +1,59 @@
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+button {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.icon-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+  .icon-table thead th {
+    background-color: #91AEB8;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .icon-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .icon-table tbody td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+
+    .icon-table tbody td:first-child {
+      border-left: none;
+    }
+
+    .icon-table tbody td:last-child {
+      border-right: none;
+    }
+
+  .icon-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .icon-table tbody tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }

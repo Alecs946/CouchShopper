@@ -1,0 +1,42 @@
+<!-- checkout-steps.component.html -->
+<div class="steps steps-light pt-2 pb-3">
+    <a class="step-item" (click)="goToStep(1)" [class.active]="currentStep === 1" [class.current]="currentStep > 1">
+        <div class="step-circle">
+            <span class="step-count">
+                <i class="fa-solid fa-shopping-cart"></i>
+            </span>
+        </div>
+        <div class="step-progress"></div>
+        <div class="step-label">Cart</div>
+    </a>
+    <a class="step-item" (click)="goToStep(2)" [class.active]="currentStep === 2" [class.current]="currentStep > 2">
+        <div class="step-circle">
+            <span class="step-count ">
+                <i class="fa-solid fa-circle-user"></i>
+            </span>
+        </div>
+        <div class="step-progress"></div>
+        <div class="step-label">Details</div>
+    </a>
+    <a class="step-item" (click)="goToStep(3)" [class.active]="currentStep === 3" [class.current]="currentStep > 3">
+        <div class="step-circle">
+            <span class="step-count"><i class="fa-solid fa-truck-fast"></i></span>
+        </div>
+        <div class="step-progress"></div>
+        <div class="step-label">Shipping</div>
+    </a>
+    <a class="step-item" (click)="goToStep(4)" [class.active]="currentStep === 4" [class.current]="currentStep > 4">
+        <div class="step-circle">
+            <span class="step-count"><i class="fa-solid fa-credit-card"></i></span>
+        </div>
+        <div class="step-progress"></div>
+        <div class="step-label">Payment</div>
+    </a>
+    <a class="step-item" (click)="goToStep(5)" [class.active]="currentStep === 5">
+        <div class="step-circle">
+            <span class="step-count"><i class="fa-solid fa-circle-check"></i></span>
+        </div>
+        <div class="step-progress"></div>
+        <div class="step-label">Review</div>
+    </a>
+</div>

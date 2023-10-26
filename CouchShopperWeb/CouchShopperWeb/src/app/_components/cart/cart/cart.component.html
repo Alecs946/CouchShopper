@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <section class="col-lg-8">
+            <div class="d-flex flex-lg-row justify-content-between align-items-center pt-3 pb-4 pb-sm-5 mt-1">
+                <h6 class="text-light mb-0">Products</h6>
+            </div>
+            <div *ngIf="products && products.length>0;else noItems">
+                <div *ngFor="let product of products" class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
+                    <div class="d-block d-sm-flex align-items-center text-center text-sm-start">
+                        <a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" [routerLink]="'/product-details/'+product.productId">
+                            <img [src]="product?.imageBase64?('data:image/jpeg;base64,' + product.imageBase64) : './assets/product.png'" width="160" alt="Product">
+                        </a>
+                        <div class="pt-2">
+                            <h4 class="product-title fs-base mb-2">
+                                <a [routerLink]="'/product-details/'+product.productId">{{product.productName}}</a>
+                            </h4>
+                            <div *ngFor="let option of product.selectedOptions" class="fs-sm">
+                                <span class="text-muted me-2">{{option.optionName}}:</span>
+                                {{option.optionValue}}
+                            </div>
+                            <div class="fs-lg text-accent pt-2">{{product.price | currency:'USD' }}</div>
+                        </div>
+                    </div>
+                    <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
+                        <label class="form-label">Quantity</label>
+                        <input class="form-control" type="number" min="1" [ngModel]="product.quantity" (ngModelChange)="quantityChanged($event, product)" [max]="product.numberOfAvailableProducts">
+                        <button class="btn btn-link px-0 text-danger" type="button" (click)="productRemoved(product)">
+                            <i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="d-flex pt-4 mt-3">
+                    <div class="w-50 pe-3">
+                        <button class="btn btn-secondary d-block w-100" routerLink="/">
+                            <i class="fa-solid fa-angle-left me-2"></i>
+                            <span class="d-none d-sm-inline">Continue shopping</span>
+                        </button>
+                    </div>
+                    <div class="w-50 ps-2">
+                        <button type="button" class="btn btn-primary d-block w-100" (click)="proceed()">
+                            <span class="d-none d-sm-inline">Proceed to Checkout</span>
+                            <i class="fa-solid fa-angle-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noItems>
+                <h5 class="text-muted align-items-center text-center">Cart is currenty empty</h5>
+            </ng-template>
+        </section>
+        <!-- Sidebar-->
+        <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5" *ngIf="products && products.length>0">
+            <app-cart-aside [subtotal]="subtotal"></app-cart-aside>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+    <h2 class="h3 py-2 text-center text-sm-start">Payouts</h2>
+    <div *ngIf="balance>=0" class="row mx-n2 py-2">
+        <div class="col-sm-6 px-2 mb-4">
+            <div class="bg-secondary h-100 rounded-3 p-4">
+                <h5>Current balance</h5>
+                <p class="fs-sm"><span class="fw-medium">{{balance|currency: 'USD'}}</span></p>
+                <div *ngIf="paymentMethod;else noMethod">
+                    <button class="btn btn-primary btn-sm" (click)="withdraw()">Withdraw</button>
+                </div>
+                <ng-template #noMethod>
+                    <h5>Please select payout method</h5>
+                    <a class="btn btn-primary btn-sm" routerLink="/settings">Add payout method</a>
+                </ng-template>
+            </div>
+        </div>
+        <div *ngIf="paymentMethod" class="col-sm-6 px-2 mb-4">
+            <div class="bg-secondary h-100 rounded-3 p-4">
+                <h3 class="h5">Payout method</h3>
+                <div class="ps-2">
+                    <i class="fa-brands fa-cc-{{paymentMethod.cardName| lowercase }} fa-2x me-3"></i>
+                    <span *ngIf="paymentMethod.cardNumber">ending in {{ paymentMethod.cardNumber }} </span>
+                </div>
+                <div class="ms-1 align-middle">{{ paymentMethod.nameOnCard }}</div>
+                <a class="btn btn-primary btn-sm" routerLink="/settings">Change payout method</a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="payouts ">
+        <h3 class="h5 pb-2">Payout history</h3>
+        <div *ngIf="payouts.length>0;else noPayouts" class="table-responsive">
+            <table class="table table-layout-fixed fs-sm mb-0">
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Payout method</th>
+                        <th>Date processed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let payout of payouts">
+                        <td>{{payout.amount|currency: 'USD'}}</td>
+                        <td>{{payout.payoutMethod}}</td>
+                        <td>{{payout.onDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="payouts" class="pagination-container">
+                <pagination [boundaryLinks]="true"
+                            [totalItems]="numberOfPayouts"
+                            [itemsPerPage]="itemsPerPage"
+                            [(ngModel)]="currentPage"
+                            [maxSize]="maxSizePagination"
+                            (pageChanged)="payoutsPageChanged($event)"></pagination>
+            </div>
+        </div>
+        <ng-template #noPayouts>
+            <h6>
+                Currently there is no payout history
+            </h6>
+        </ng-template>
+    </div>
+</div>

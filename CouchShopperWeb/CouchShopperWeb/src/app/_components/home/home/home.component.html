@@ -1,0 +1,16 @@
+<div *ngIf="main?.specialOffer">
+  <app-special-offer *ngIf="main?.specialOffer?.slides?.length>0" [specialOffer]="main?.specialOffer"></app-special-offer>
+</div>
+<main class="main-backgorund-color">
+  <div *ngIf="main?.featuredProducts && main?.featuredProducts.length>0" class="container pt-5">
+    <app-featured-products [products]="main?.featuredProducts" [numberOfProducts]="GetNumberOfProducts()"></app-featured-products>
+  </div>
+  <div *ngIf="main?.mostRecentProducts && main?.mostRecentProducts.length >0" class="container pt-5">
+    <app-most-recent-products [products]="main?.mostRecentProducts" [columns]="GetNumberOfProducts()"
+                              [rows]="2" [categories]="categories" [showCategories]="true"></app-most-recent-products>
+  </div>
+  <div *ngIf="main?.topSeller && main.topSeller.products" class="container pt-5">
+    <app-top-seller [sellerInfo]="main?.topSeller"></app-top-seller>
+  </div>
+</main>
+

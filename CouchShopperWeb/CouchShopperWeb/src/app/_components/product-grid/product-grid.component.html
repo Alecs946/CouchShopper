@@ -1,0 +1,7 @@
+<div class="product-grid" [ngStyle]="getGridRowStyle()">
+    <div class="row">
+        <div [ngClass]="getGridColumnClass()" class="pt-2" *ngFor="let product of products">
+            <app-product [product]="product"></app-product>
+        </div>
+    </div>
+</div>

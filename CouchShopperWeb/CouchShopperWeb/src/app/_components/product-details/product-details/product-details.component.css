@@ -1,0 +1,9 @@
+.container {
+  position: relative;
+  margin-top: -3rem;
+  background-color: white;
+  border-radius: 10px;
+}
+.gallery-wrapper{
+    width:500px;
+}

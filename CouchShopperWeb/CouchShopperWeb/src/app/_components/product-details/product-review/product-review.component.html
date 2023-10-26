@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div *ngIf="numberOfReviews && numberOfReviews>0">
+        <div class="star-rating">
+            <rating [(ngModel)]="rating" [max]="5" [readonly]="true"></rating>
+        </div>
+        <span class="d-inline-block fs-sm text-body align-middle mt-1 ms-1"
+              *ngIf="numberOfReviews > 1;
+                else singularReview">{{numberOfReviews}} Reviews</span>
+        <ng-template #singularReview>
+            1 Review
+        </ng-template>
+    </div>
+    <button *ngIf="(currentUser$|async)" class="wishlist-btn me-0 me-lg-n3" >
+        <i class="fa-regular fa-2x fa-heart" (click)="addToFavorites()"></i>
+    </button>
+</div>

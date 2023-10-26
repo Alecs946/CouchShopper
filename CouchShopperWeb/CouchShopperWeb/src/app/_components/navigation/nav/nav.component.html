@@ -1,0 +1,90 @@
+ <!--Navbar-->
+<nav class="navbar navbar-expand-md bg-primary ">
+  <div class="container d-flex">
+    <!--Collapse Button-->
+    <button class="navbar-toggler d-inline d-md-none d-flex order-md-1 order-0 text-light" type="button" data-mdb-toggle="collapse"
+            (click)="navbarCollapsed = !navbarCollapsed"
+            [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarSupportedContent">
+      <i class="fas fa-search"></i>
+    </button>
+    <!--Collapse Button End-->
+    <!--Drop down-->
+    <div class="d-flex align-items-center hidden-arrow order-md-2 order-2">
+      <div *ngIf="(currentUser$|async)" class="d-flex d-none d-md-block">
+        <a *appHasRole="['3']" class="text-reset me-3 dropdown-toggle" routerLink="/cart">
+          <i class="fas fa-shopping-cart align-items-center"></i>
+          <span *ngIf="(navigationService.getCartItemsCount() | async) as cartCount" class="pe-2 badge rounded-pill badge-notification bg-danger">{{ cartCount }}</span>
+        </a>
+      </div>
+      <div *ngIf="(currentUser$|async)" class="dropdown pe-3 ps-3" dropdown #menuAvatarDropdown="bs-dropdown" triggers="hover || click" (click)="menuAvatarDropdown.hide()" (mouseleave)="menuAvatarDropdown.toggle()">
+        <a class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
+          <img [src]="(navigationService.getProfilePicture() | async) || './assets/avatar.png'" class="rounded-circle avatar" alt="Avatar" (click)="menuAvatarDropdown.hide()" />
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuAvatar">
+          <app-nav-dropdown *ngFor="let item of (this.avatarDropdown$ | async);" [DropDownItem]=item></app-nav-dropdown>
+        </ul>
+      </div>
+      <div class="ps-2" *ngIf="(currentUser$|async)===null">
+        <a class="text-light" (click)="openModal()">
+          <i class="fa-solid  fa-right-to-bracket"></i>
+        </a>
+      </div>
+      <div class="ps-2" *ngIf="(currentUser$|async)">
+        <a class="text-light" (click)="logout()">
+          <i class="fa-solid   fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </div>
+    <!--Drop down  End-->
+    <!--Logo-->
+    <div class="navbar-brand order-1  me-3 pe-3">
+      <a href="">
+        <img src="{{'./assets/couchShopperLogo.png'}}" alt="Couch Shopper" width="142">
+      </a>
+    </div>
+    <!--Logo End-->
+    <!--Search Bar-->
+    <div *ngIf="(this.categories$ | async) as categories" class="collapse navbar-collapse order-3 order-md-1" id="navbarSupportedContent" [collapse]="navbarCollapsed">
+      <div *ngIf="categories.length > 0" class="d-flex align-items-center w-100 form-search">
+        <div class="input-group" dropdown>
+          <button class="btn btn-light dropdown-toggle shadow-0" type="button" dropdownToggle>
+            {{buttonText}}
+          </button>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-dark fa-ul">
+            <li *ngFor="let item of categories" role="menuitem">
+              <a *ngIf="item" class="dropdown-item" (click)="selectCategory(item)">
+                <span class="pe-2 text-light text-center">
+                  <i [class]="item.iconName"></i>
+                </span>
+                {{ item.name }}
+              </a>
+            </li>
+          </ul>
+
+          <input type="search" [(ngModel)]="searchPhrase" class="form-control" placeholder="Search" aria-label="Search" />
+        </div>
+        <a class="text-light" title="Search" (click)="search()"><i class="fas fa-search ps-3"></i></a>
+      </div>
+
+
+      <div *ngIf="(currentUser$|async)" class="d-flex d-none d-md-block">
+        <ul *appHasRole="['3']" class="navbar-nav ms-3">
+          <li class="nav-item" title="Favorites">
+            <a class="nav-link d-flex align-items-center me-3 text-light" routerLink="/favorites">
+              <i class="fa-regular fa-heart pe-2"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    <!--Search Bar End-->
+  </div>
+</nav>
+
+<ng-template #login>
+  <app-account (formSubmitted)="loginFormSubmitted($event)"></app-account>
+</ng-template>
+<ng-template #activate>
+  <app-account-activate (formSubmitted)="activationFormSubmitted($event)"></app-account-activate>
+</ng-template>

@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.74-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Command to run on project build -->
+    <BuildCommand>
+    </BuildCommand>
+    <!-- Command to create an optimized build of the project that's ready for publishing -->
+    <ProductionBuildCommand>npm run build</ProductionBuildCommand>
+    <!-- Folder where production build objects will be placed -->
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\CouchShopperWeb</BuildOutputFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\_directives\" />
+    <Folder Include="src\app\_guards\" />
+    <Folder Include="src\app\_models\_cart\response\" />
+    <Folder Include="src\app\_models\_cart\request\" />
+    <Folder Include="src\app\_models\_common\response\" />
+    <Folder Include="src\app\_models\_common\request\" />
+    <Folder Include="src\app\_models\_order\request\" />
+    <Folder Include="src\app\_models\_product\response\" />
+    <Folder Include="src\app\_models\_product\request\" />
+    <Folder Include="src\app\_models\_settings\response\" />
+    <Folder Include="src\app\_models\_settings\request\" />
+    <Folder Include="src\app\_modules\" />
+    <Folder Include="src\app\_interceptors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\_const\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\_const\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\_models\Chart\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\_models\Chart\**" />
+  </ItemGroup>
+</Project>

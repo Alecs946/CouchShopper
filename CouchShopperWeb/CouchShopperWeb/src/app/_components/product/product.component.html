@@ -1,0 +1,34 @@
+<div class="product-container">
+    <div class="product-thumb">
+        <img [src]="product.imageBase64? 'data:image/png;base64,' +product.imageBase64:'./assets/product.png'" alt="Product Image">
+        <div class="overlay"></div>
+        <div  *ngIf="(currentUser$|async)" class="wishlist">
+            <a *appHasRole="['3']" class="text-light action-btn overlay-btn" (click)="wishlistClick(product.id)">
+                <i class="fa-regular fa-2x fa-heart"></i>
+            </a>
+        </div>
+        <div class="product-card-actions">
+            <a class="text-light overlay-btn action-btn" [routerLink]="'/product-details/'+product.id">
+                <i class="fa-regular fa-2x fa-eye"></i>
+            </a>
+        </div>
+    </div>
+    <div class="product-details">
+        <div class="rating text-light">
+            <rating [(ngModel)]="product.rating"
+                    [max]="5"
+                    [readonly]="true"> </rating>
+        </div>
+        <h4 class="product-title">{{ product.name }}</h4>
+        <div class="product-info">
+            <div class="fs-sm">
+                <i class="ci-download text-muted me-1"></i>
+                {{ product.numberOfSales }}
+                <span class="fs-xs ms-1">Sales</span>
+            </div>
+            <div class="bg-faded-accent text-accent rounded-1 py-1 px-2">
+                {{ product.price| currency:'USD'  }}
+            </div>
+        </div>
+    </div>
+</div>

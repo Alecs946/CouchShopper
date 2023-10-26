@@ -1,0 +1,27 @@
+
+<div *ngIf="productDetails">
+<div *ngIf="productDetails">
+    <app-product-header [productName]="productDetails.productName"></app-product-header>
+</div>
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-12 d-flex">
+            <div *ngIf="productDetails?.pictures && productDetails?.pictures?.length >0" class="offset-1 col-5">
+                <app-gallery [images]="productDetails.pictures"></app-gallery>
+            </div>
+            <div *ngIf="productDetails" class="offset-1 col-5">
+                <app-product-info [productDetails]="productDetails"
+                                  [productDescription]="productDescription"
+                                  [shippingOptions]="shippingOptions"
+                                  [sellerInfo]="sellerInfo"
+                                  [id]="id"  ></app-product-info>
+            </div>
+        </div>
+        <div *ngIf="productDetails" class="row">
+            <app-product-comments [productId]="id"></app-product-comments>
+        </div>
+
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 order-md-2">
+            <div class="preview">
+                <div class="preview-wrapper">
+                    <img [src]="previewImage?.largeUrl" alt="Preview Image" (click)="openLightbox(previewImage)">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 order-md-1">
+            <div class="thumbnails">
+                <div *ngFor="let image of images" (click)="openPreview(image)">
+                    <img [src]="image.thumbnailUrl" alt="Thumbnail">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="lightbox" *ngIf="lightboxOpen" (click)="closePreview($event)">
+        <img [src]="selectedImage.largeUrl" alt="Image">
+        <span class="prev-icon" (click)="previousImage()" *ngIf="!isFirstImage()">
+            <i class="fas fa-chevron-left fa-2x"></i>
+        </span>
+        <span class="next-icon" (click)="nextImage()" *ngIf="!isLastImage()">
+            <i class="fas fa-chevron-right fa-2x"></i>
+        </span>
+        <span class="close-icon" (click)="closeLightbox()">
+            <i class="fas fa-times fa-2x"></i>
+        </span>
+    </div>
+</div>

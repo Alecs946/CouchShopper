@@ -1,0 +1,29 @@
+<div *ngIf="productId && comments && comments.length>0;else noreviews" class="col-12 pt-4">
+    <div *ngIf="comments" class="row pt-4">
+        <h5>Comments and Reviews</h5>
+        <div class="comment" *ngFor="let comment of comments">
+            <div class="flex-shrink-0 reviewer">
+                <div class="ps-3 d-flex align-items-center reviewer">
+                    <label class="fs-lg mb-0">{{comment.userId}}</label>
+                </div>
+            </div>
+            <div class="product-rating">
+                <rating [(ngModel)]="comment.rating" [max]="5" [readonly]="true"></rating>
+            </div>
+            <p>{{ comment.comment}}</p>
+        </div>
+        <div *ngIf="comments &&  comments.length === 0" class="no-comments">No comments yet.</div>
+    </div>
+    <div class="pagination-container mt-3">
+        <pagination [boundaryLinks]="true"
+                    [totalItems]="number"
+                    [itemsPerPage]="itemsPerPage"
+                    [(ngModel)]="currentPage"
+                    [maxSize]="maxSizePagination"
+                    (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+</div>
+<ng-template #noreviews>
+    <h5>Comments and Reviews</h5>
+    <div class="no-comments"><p>No comments yet.</p></div>
+</ng-template>

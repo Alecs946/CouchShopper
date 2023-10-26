@@ -1,0 +1,15 @@
+<li *appHasRole="DropDownItem.role" >
+  <div *ngIf="DropDownItem">
+    <div *ngIf="DropDownItem.groupName" class="dropdown-divider"></div>
+    <h5 *ngIf="DropDownItem.groupName" class="dropdown-header text-light">{{DropDownItem.groupName}}</h5>
+    <div class="dropdown-divider"></div>
+  </div>
+</li>
+<li *ngFor="let item of DropDownItem.dropDownItems" role="menuitem">
+    <a *appHasRole="item.role"  class="dropdown-item" [routerLink]="item.action" [ngClass]="{'d-block d-md-none': !item.alwaysShow}">
+        <span *ngIf="item.iconName" class="pe-2 text-light text-center">
+            <i class="{{item.iconName}}"></i>
+        </span>{{item.name}}
+        <span *ngIf="(item.numberOfNotifications |async)as count" class="badge rounded-pill badge-notification bg-info">{{count}}</span>
+    </a>
+</li>

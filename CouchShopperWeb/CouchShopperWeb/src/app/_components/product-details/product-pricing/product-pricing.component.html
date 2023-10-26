@@ -1,0 +1,8 @@
+<div *ngIf="salePrice;else noSale" class="mb-3">
+    <span class="h3 fw-normal text-accent me-1">{{salePrice| currency:'USD' }}</span>
+    <del *ngIf="salePrice" class="text-muted fs-lg me-3">{{price}}</del>
+    <span *ngIf="salePrice" class="badge bg-danger badge-shadow align-middle mt-n2">Sale</span>
+</div>
+<ng-template #noSale>
+    <span class="h3 fw-normal text-accent me-1">{{price| currency:'USD' }}</span>
+</ng-template>

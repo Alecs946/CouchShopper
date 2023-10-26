@@ -1,0 +1,18 @@
+<div class="position-relative me-n4 mb-3">
+    <div class="product-badge product-available mt-n1">
+        <div *ngIf="(numberOfAvailableProducts && numberOfAvailableProducts>0);else notAvailable">
+            <i class="fa-solid fa-check text-success">
+                Product available
+            </i>
+            <div>
+                <label *ngIf="numberOfAvailableProducts>1;else onePiece">{{numberOfAvailableProducts}} Pieces available</label>
+                <ng-template #onePiece>
+                    <label>{{numberOfAvailableProducts}} Piece available</label>
+                </ng-template>
+            </div>
+        </div>
+        <ng-template #notAvailable>
+            <i class="fa-solid fa-xmark text-danger"> Sold out</i>
+        </ng-template>
+    </div>
+</div>
